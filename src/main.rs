@@ -14,15 +14,13 @@ use std::{
 // =============================================================================
 // =============================================================================
 
-/**
+// Investigative challenge: implement one or more mutexes from scratch
 
-Investigative challenge: implement one or more mutexes from scratch
-
-tldr; My experience at Replay.io sparked a deep curiosity about concurrency, particularly in Rust. Coming from a purely JS background, I want to implement simple concurrency primitives from scratch to better understand them. If you're curious to learn more about why, you can read below:
-
-
-While I was at Replay.io, we experienced significant difficulty related to concurrency and shared state. Our backend (built with Node.js) served users data about their program's Javascript execution which the backend requested from the modified Chromium browser runtime. The backend also managed representations of browser/linker processes, which helped me understand domain-specific challenges with process management. If I could redesign the system from scratch, I would significantly minimize the amount of shared state and asynchronous access to it because it led to intractable bugs and generally unsafe programs. Node.js lacks robust concurrency primitives for ordering and defining dependencies. Some areas of the code were so fragile that even small changes would introduce new, unexpected race conditions. We would often fall back to writing all the code synchronously to prevent event loop interruptions.
- */
+// My experience at Replay.io sparked a deep curiosity about concurrency, particularly in Rust.
+// Coming from a purely JS background, I want to implement simple concurrency primitives from scratch
+// to better understand them.
+// I know time is of the essence, so if you're curious to learn more about why, you can read
+// more at the very end of this file.
 
 // =============================================================================
 // =============================================================================
@@ -354,3 +352,20 @@ mod mutex_with_data_tests {
 fn main() {
     // intentionally empty
 }
+
+// =============================================================================
+// =============================================================================
+// ================================ Background Continued =======================
+// =============================================================================
+// =============================================================================
+
+// While I was at Replay.io, we experienced significant difficulty related to concurrency and shared state.
+// Our backend (built with Node.js) served users data about their program's Javascript execution which the backend
+// requested from the modified Chromium browser runtime. The backend also managed representations of browser/linker
+// processes, which helped me understand domain-specific challenges with process management.
+// If I could redesign the system from scratch, I would significantly minimize the amount of shared state and
+// asynchronous access to it because it led to intractable bugs and generally unsafe programs.
+// Node.js lacks robust concurrency primitives for ordering and defining dependencies.
+// Some areas of the code were so fragile that even small changes would introduce new, unexpected race conditions.
+// We would often fall back to writing all the code synchronously to prevent event loop interruptions, but that was
+// still error-prone.
